@@ -31,17 +31,10 @@ export function InteractiveCharts() {
   const [isMaximized, setIsMaximized] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      loadChartData();
-    }
+    loadChartData();
   }, [dataSource, timePeriod]);
 
   const loadChartData = async () => {
-    if (typeof window === 'undefined') {
-      setChartData([{ name: 'Loading', value: 0 }]);
-      return;
-    }
-
     setLoading(true);
     try {
       let data: any[] = [];

@@ -24,17 +24,10 @@ export function RecentActivity() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      loadActivities();
-    }
+    loadActivities();
   }, []);
 
   const loadActivities = async () => {
-    if (typeof window === 'undefined') {
-      setLoading(false);
-      return;
-    }
-
     try {
       const [marksData, attendanceData] = await Promise.all([
         supabase

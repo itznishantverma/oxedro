@@ -1,6 +1,5 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { useAuth } from '@/lib/auth-context';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
@@ -9,9 +8,11 @@ import { QuickActions } from '@/components/dashboard/quick-actions';
 import { RecentActivity } from '@/components/dashboard/recent-activity';
 import { PerformanceOverview } from '@/components/dashboard/performance-overview';
 import { UpcomingEvents } from '@/components/dashboard/upcoming-events';
-import { InteractiveCharts } from '@/components/dashboard/interactive-charts';
+// import { InteractiveCharts } from '@/components/dashboard/interactive-charts';
 
-function DashboardPageContent() {
+export const dynamic = 'force-dynamic';
+
+export default function DashboardPage() {
   const { user } = useAuth();
   const [stats, setStats] = useState({
     totalStudents: 0,
@@ -33,17 +34,10 @@ function DashboardPageContent() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      loadDashboardData();
-    }
+    loadDashboardData();
   }, []);
 
   const loadDashboardData = async () => {
-    if (typeof window === 'undefined') {
-      setLoading(false);
-      return;
-    }
-
     try {
       const { data: rolesData } = await supabase
         .from('roles')
@@ -145,14 +139,15 @@ function DashboardPageContent() {
     <div className="p-4 md:p-6 space-y-6">
       <StatsCards stats={stats} loading={loading} />
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+      {/* Temporary: Charts disabled during build - will be re-enabled */}
+      {/* <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         <div className="lg:col-span-2">
           <InteractiveCharts />
         </div>
         <div className="lg:col-span-3">
-          {/* Placeholder for future content */}
+
         </div>
-      </div>
+      </div> */}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
@@ -168,22 +163,3 @@ function DashboardPageContent() {
     </div>
   );
 }
-
-const DashboardPage = dynamic(() => Promise.resolve(DashboardPageContent), {
-  ssr: false,
-  loading: () => (
-    <div className="p-4 md:p-6 space-y-6">
-      <div className="animate-pulse">
-        <div className="h-8 bg-slate-200 rounded w-1/3 mb-6"></div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-          <div className="h-32 bg-slate-200 rounded"></div>
-          <div className="h-32 bg-slate-200 rounded"></div>
-          <div className="h-32 bg-slate-200 rounded"></div>
-          <div className="h-32 bg-slate-200 rounded"></div>
-        </div>
-      </div>
-    </div>
-  ),
-});
-
-export default DashboardPage;

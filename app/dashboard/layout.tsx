@@ -28,6 +28,8 @@ import {
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Skeleton } from '@/components/ui/skeleton';
 
+export const dynamic = 'force-dynamic';
+
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, resource: null },
   { name: 'Users', href: '/dashboard/users', icon: Users, resource: 'users' },
