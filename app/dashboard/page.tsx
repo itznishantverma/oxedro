@@ -8,9 +8,7 @@ import { QuickActions } from '@/components/dashboard/quick-actions';
 import { RecentActivity } from '@/components/dashboard/recent-activity';
 import { PerformanceOverview } from '@/components/dashboard/performance-overview';
 import { UpcomingEvents } from '@/components/dashboard/upcoming-events';
-// import { InteractiveCharts } from '@/components/dashboard/interactive-charts';
-
-export const dynamic = 'force-dynamic';
+import { InteractiveCharts } from '@/components/dashboard/interactive-charts';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -139,15 +137,14 @@ export default function DashboardPage() {
     <div className="p-4 md:p-6 space-y-6">
       <StatsCards stats={stats} loading={loading} />
 
-      {/* Temporary: Charts disabled during build - will be re-enabled */}
-      {/* <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         <div className="lg:col-span-2">
           <InteractiveCharts />
         </div>
         <div className="lg:col-span-3">
-
+          {/* Placeholder for future content */}
         </div>
-      </div> */}
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">

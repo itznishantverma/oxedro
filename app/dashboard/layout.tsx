@@ -28,8 +28,6 @@ import {
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export const dynamic = 'force-dynamic';
-
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, resource: null },
   { name: 'Users', href: '/dashboard/users', icon: Users, resource: 'users' },
@@ -58,20 +56,16 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedState = localStorage.getItem('sidebarCollapsed');
-      if (savedState) {
-        setSidebarCollapsed(JSON.parse(savedState));
-      }
+    const savedState = localStorage.getItem('sidebarCollapsed');
+    if (savedState) {
+      setSidebarCollapsed(JSON.parse(savedState));
     }
   }, []);
 
   const toggleSidebar = () => {
     const newState = !sidebarCollapsed;
     setSidebarCollapsed(newState);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('sidebarCollapsed', JSON.stringify(newState));
-    }
+    localStorage.setItem('sidebarCollapsed', JSON.stringify(newState));
   };
 
   useEffect(() => {
