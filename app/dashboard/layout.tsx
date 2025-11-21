@@ -56,16 +56,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   useEffect(() => {
-    const savedState = localStorage.getItem('sidebarCollapsed');
-    if (savedState) {
-      setSidebarCollapsed(JSON.parse(savedState));
+    if (typeof window !== 'undefined') {
+      const savedState = localStorage.getItem('sidebarCollapsed');
+      if (savedState) {
+        setSidebarCollapsed(JSON.parse(savedState));
+      }
     }
   }, []);
 
   const toggleSidebar = () => {
     const newState = !sidebarCollapsed;
     setSidebarCollapsed(newState);
-    localStorage.setItem('sidebarCollapsed', JSON.stringify(newState));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('sidebarCollapsed', JSON.stringify(newState));
+    }
   };
 
   useEffect(() => {

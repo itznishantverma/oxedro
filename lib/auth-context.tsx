@@ -104,6 +104,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
+    if (typeof window === 'undefined') {
+      setLoading(false);
+      return;
+    }
+
     const initAuth = async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession();
